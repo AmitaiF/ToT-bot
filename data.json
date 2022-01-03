@@ -1,1 +1,9 @@
-{"lastId": , "apiKey": "", "apiSecret": "", "accessToken": "", "accessSecret": "", "botToken": "", "channelId": ""}
+{
+  "lastId": "",
+  "apiKey": "",
+  "apiSecret": "",
+  "accessToken": "",
+  "accessSecret": "",
+  "botToken": "",
+  "channelId": ""
+}
