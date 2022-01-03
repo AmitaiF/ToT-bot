@@ -1,6 +1,6 @@
 import tweepy
 import time
-import DataAccess as dal
+import data_access as dal
 import requests
 
 
