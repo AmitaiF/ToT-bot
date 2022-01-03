@@ -2,9 +2,7 @@ import tweepy
 import time
 import DataAccess as dal
 import requests
-import feedparser
-from datetime import timedelta, datetime
-from dateutil import parser
+
 
 def main():
     data = dal.getData()
@@ -21,13 +19,13 @@ def main():
     while True:
         try:
             print('Checks for tweets...' + '\n')
-            tweets = twitterApi.home_timeline(since_id = lastId)
+            tweets = twitterApi.home_timeline(since_id=lastId)
             if tweets:
                 print('Tweets found!' + '\n')
                 for tweet in tweets:
                     message = getMessage(tweet)
                     send_message(message, BOT_TOKEN, CHANNEL_ID)
-                    print('telegramed!\n')            
+                    print('telegramed!\n')
                 lastId = tweets[0].id
                 data['lastId'] = lastId
                 dal.setData(data)
@@ -49,8 +47,10 @@ def main():
         print('Now I\'m sleeping for a minute...' + '\n')
         time.sleep(60)
 
+
 def send_message(message, BOT_TOKEN, CHANNEL_ID):
     requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage?chat_id={CHANNEL_ID}&text={message}&parse_mode=html')
+
 
 def getTwitterAPI(data):
     # Authenticate to Twitter
@@ -58,14 +58,14 @@ def getTwitterAPI(data):
     auth.set_access_token(data['accessToken'], data['accessSecret'])
     return tweepy.API(auth)
 
+
 def getMessage(tweet):
-    message = '<a href="twitter.com/'
-    message += tweet.user.screen_name
-    message += '">'
+    message = '<b>'
     message += tweet.user.name
-    message += '</a>:<br><br>'
+    message += ':\n</b>'
     message += tweet.text
     return message
+
 
 if __name__ == '__main__':
     main()
